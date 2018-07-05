@@ -1,0 +1,43 @@
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<!DOCTYPE html>
+<html ng-app="app">
+ 
+<head>
+
+<script src="../vendor/angular/angular.js" > </script>
+<script src="../vendor/angular/angular-route.js" > </script>
+
+<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../vendor/wow/animate.css">
+
+<link rel="stylesheet" href="../vendor/icono/stylesheet.css">
+
+<link rel="stylesheet" href="../vendor/materialize/css/materialize.min.css">
+
+<link rel="shortcut icon" href="assets/img/icono.ico">
+
+
+<title>SIN_QN</title>
+
+</head>
+ 
+<body >
+ <ng-include src=" '../App/Views/componentes/nav.html'  "></ng-include>
+
+ 
+  <div ng-view></div>
+
+
+ 
+
+	<script src="../vendor/materialize/js/jquery.js" ></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js" ></script>
+	<script src="../vendor/materialize/js/materialize.js" ></script>
+	<script src="../vendor/sweetAlert2/sweetalert2.js" ></script>
+
+	<script src="../App/Routers/app.js"> </script>
+	<script src="../App/Views/controlador.js"> </script>
+
+</body>
+ 
+</html>
