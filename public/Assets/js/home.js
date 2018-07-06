@@ -1,1 +1,0 @@
-seleccionMenu(1)

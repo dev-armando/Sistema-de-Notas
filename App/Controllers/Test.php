@@ -7,8 +7,8 @@ use \Core\Controller,
      \App\Models\User;
 
 defined("PATH_RAIZ") OR die("Access denied");
- 
-class Principal extends Controller
+// Controlador para Hacer Pruebas 
+class Test extends Controller
 {
 
 	public function __construct(){
@@ -17,10 +17,10 @@ class Principal extends Controller
     }
 
 
-    public function show()
+    public function post()
     {        
         
-        View::render('app');
+        View::render('Test/post');
         
     }
 
