@@ -70,10 +70,26 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 
 // Login 
 
-app.controller("login" , function login($scope , $rootScope){
+app.controller("login" , function login($scope , $rootScope, $http){
 
-		
+	moduloLogin()
 	$rootScope.menu = false
+
+	$scope.ingresar = () =>{
+
+		let datos = {   usuario : $scope.usuario , clave : $scope.clave }
+
+		$http.post( 'Usuarios/ingresar' , angular.toJson(datos)  )
+			 .then( (rsp) => {
+
+			 	let respuesta = angular.fromJson(rsp.data)
+
+			 	if(respuesta.valida){
+			 		
+			 	}
+			
+			}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+	}
 
 
 } );

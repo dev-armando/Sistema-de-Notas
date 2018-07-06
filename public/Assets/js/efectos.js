@@ -9,3 +9,13 @@ $(document).ready(function(){
   });
     
 }
+
+
+// login 
+
+var moduloLogin = () =>{
+
+
+	$("input[type=text]").mayuscula()
+
+}
