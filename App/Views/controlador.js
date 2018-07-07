@@ -74,13 +74,46 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 
 	$scope.data = {}
 
+	$scope.data.sexo  = 'f'
+
+	$scope.data.edad = 'Sep 16, 2010' 
+
+	$scope.data.nota = 15 
+
+	$scope.control = false
+
+
+	$scope.$watchGroup(['data.nota' , 'data.nombre'] , (nuevo,anterior)=>{
+
+			$scope.control = true
+            
+            if (nuevo[0] > 20 ){
+
+            	mensajeError("No existe nota mayor a 20")
+            	$scope.control = false
+            } 
+
+             if (nuevo[0] < 1 ){
+
+            	mensajeError("La nota al menos debe ser 01")
+            	$scope.control = false
+            } 
+
+            if (nuevo[1].length < 3 ) $scope.control = false
+           
+            
+     })	
+
 	$scope.btnRegistrar = ()=>{
 
 			$http.post("Estudiantes/registrar",  angular.toJson($scope.data) )
 			.then( 
 			(r)=>{ 
-				//let x = angular.fromJson(r.data);
-				alert(r.data)
+				
+				$scope.data.nombre = ''
+
+				window.location.href = '#/notas'
+
 			}, (r)=>{alert(r)} )
 
 

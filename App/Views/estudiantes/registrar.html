@@ -1,5 +1,5 @@
 <br><br>
-<h2 class="center" > Registrar Estudiante  {{data.edad }}</h2>
+<h2 class="center" > Registrar Estudiante  </h2>
 <br><br><br><br>
   <div class="input-field col s8 offset-s1"> 
       <input id="nombre" type="text" class="validate" ng-model=data.nombre >
@@ -34,7 +34,7 @@
 </div>
 
 <div class="input-field col s2 offset-s10  ">
-  <button class="btn btn-block blue darken-4" ng-click="btnRegistrar()" >
+  <button ng-disabled="!control"  class="btn btn-block blue darken-4" ng-click="btnRegistrar()" >
     Guardar  <i class="glyphicon glyphicon-ok"></i>
   </button>
 </div>

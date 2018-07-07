@@ -11,6 +11,8 @@ define("PATH_RAIZ", dirname(__DIR__).'/' );
 
 define("PATH_CORE", PATH_RAIZ.'Core/' );
 
+define("PATH_LIBS", PATH_CORE.'libs/' );
+
 define("PATH_PUBLIC", PATH_RAIZ.'Public/' );
 
 define("PATH_APP", PATH_RAIZ.'App/' );
