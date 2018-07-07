@@ -1,23 +1,34 @@
 
+
+
 <table class="table-responsive centered">
         <thead class="red darken-2   white-text">
           <tr class="">
-              <th ng-repeat="value in tabla[0]" > {{value}} </th>
+              <th ng-repeat="value in tabla" > {{value}} </th>
           </tr>
         </thead>
 
         <tbody>
-          <tr ng-repeat=" contenido in tabla[1]">
-            <td ng-repeat=" texto in contenido " >
-                {{texto}}
+          <tr  ng-repeat="k in resultado" >
+
+            <td >
+                {{ k.nombre}}
+            </td>
+
+
+            <td >
+                {{ k.literal}}
             </td>
             
-            <td>  
+            <td  >  
               <a class="waves-effect waves-light btn-floating  blue">
                 <i class="glyphicon glyphicon-file" ></i>
               </a>
               <a class="waves-effect waves-light btn-floating  cyan">
                 <i class="glyphicon glyphicon-font" ></i>
+              </a>
+              <a ng-click="btnEliminar(k.id)"  class="waves-effect waves-light btn-floating  yellow">
+                <i class="glyphicon glyphicon-minus" ></i>
               </a>
             </td>
 

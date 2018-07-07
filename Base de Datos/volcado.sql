@@ -16,7 +16,7 @@ INSERT INTO roles ( descripcion ) VALUES ( 'MAESTRO' );
 -- Root Armando Rojas
 INSERT INTO usuarios (usuarios_id , rol_id , nombre , clave ) VALUES (1, 1 , 'ARMANDO' , md5('26059573') );
 -- Maestra Norkis Querales 
-INSERT INTO usuarios (usuarios_id , rol_id , nombre , clave ) VALUES (2 , 2 , 'NORKIS' , md5('12964334') );
+INSERT INTO usuarios (usuarios_id , rol_id , nombre , clave ) VALUES (2 , 2 , 'NORKIS' , md5('123') );
 
 
 -- maestros 
@@ -63,17 +63,19 @@ INSERT INTO cursos (curso_id , periodo_id , grado_id , maestro_id , seccion ) VA
 
 -- Asignar Estudiantes 
 
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 1 ,1);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 1 ,2);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 1 ,3);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 1 ,4);
+INSERT INTO cursos_estudiantes (curso_id , estudiante_id ) values (1, 1 );
 
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 2 ,1);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 2 ,2);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 2 ,3);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 2 ,4);
+INSERT INTO cursos_estudiantes (curso_id , estudiante_id ) values (1, 2 );
 
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 3 ,1);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 3 ,2);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 3 ,3);
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id , materia_id) values (1, 3 ,4);
+INSERT INTO cursos_estudiantes (curso_id , estudiante_id ) values (1, 3 );
+
+-- literales 
+
+INSERT INTO literales (grado_id , nota, valor , rango_d , rango_h , sexo , descripcion)
+VALUES (2 , 'A' , 'Excelente', 19 , 20  , 'f' , 'Es el webito de los webitos'); 
+
+
+INSERT INTO literales (grado_id , nota, valor , rango_d , rango_h , sexo , descripcion)
+VALUES (2 , 'A' , 'Excelente', 19 , 20  , 'm' , 'Es el webito de los webitos'); 
+
+

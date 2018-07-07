@@ -4,31 +4,51 @@ app.controller("control" , ($scope , $rootScope ) =>  {
 });
 
 // Notas 
-app.controller("notas" , function login($scope , $rootScope){
+app.controller("notas" , function login($scope , $rootScope, $http){
 
 		
 	$rootScope.menu = true
+
+
 	let grado = '2do grado'
 	let seccion = 'C'
 
 	$scope.titulo = `Notas de los Estudiantes de ${grado} sección ${seccion} ` 
 
 
+	function tabla_dato($scope){
+	$http.post( 'Estudiantes/consultar'  )
+			 .then( (rsp) => {
+				
+				$scope.resultado = rsp.data
+				
+			}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+	}
+
+	tabla_dato($scope)
+
 
 	$scope.tabla = [
 	
-		["Id" , "Nombre y Apellido", "Literal", "Imprimir"],
-
-		[	
-
-		{ id: 1 , nombre: "Armando Rojas" , literal : 'A'  },
-		{ id: 2 , nombre: "Armando Rojas" , literal : 'C'  },
-		{ id: 3 , nombre: "Agustina Perez" , literal : 'D'  },
-
-		],
-
+		"Nombre y Apellido", "Literal","Imprimir"
 	];
 
+
+	$scope.btnEliminar = (id) => {
+
+		$http.get( 'Estudiantes/eliminar/'+id  )
+			 .then( (rsp) => {
+				
+				if(rsp.data == 1) {
+
+					mensajeOk("Eliminado...")
+					tabla_dato($scope)
+				}
+				else mensajeError("Error en el server")
+				
+			}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+	}
+ 
 
 
 } );
@@ -39,14 +59,10 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 
 	
 	moduloEstudiantes()
+	
+
 	$rootScope.menu = true
 
-	$scope.materias = [
-		{ id : 1 , texto : 'Matematica' , name:'opc1'},
-		{ id : 2 , texto : 'Ciencias Sociales' , name:'opc2'},
-		{ id : 3 , texto : 'Ciencias Naturales' , name:'opc3'},
-		{ id : 4 , texto : 'Lenguaje' , name:'opc4'}
-	];
 
 	$scope.lugares = [
 		{ id : 1 , texto : 'Turen' },
@@ -56,14 +72,23 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 	];
 
 
-	var data = { id : 1 , nombre : 'Turen' };
+	$scope.data = {}
 
-	$http.post("Test/post",  angular.toJson(data) )
-		.then( 
+	$scope.btnRegistrar = ()=>{
+
+			$http.post("Estudiantes/registrar",  angular.toJson($scope.data) )
+			.then( 
 			(r)=>{ 
-				let x = angular.fromJson(r.data);
-				alert(x)
+				//let x = angular.fromJson(r.data);
+				alert(r.data)
 			}, (r)=>{alert(r)} )
+
+
+	}
+
+
+
+
 
 
 } );
@@ -73,23 +98,51 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 app.controller("login" , function login($scope , $rootScope, $http){
 
 	moduloLogin()
+
+
 	$rootScope.menu = false
 
 	$scope.ingresar = () =>{
 
 		let datos = {   usuario : $scope.usuario , clave : $scope.clave }
 
-		$http.post( 'Usuarios/ingresar' , angular.toJson(datos)  )
+		$http.post( 'Usuarios/login' , angular.toJson(datos)  )
 			 .then( (rsp) => {
 
-			 	let respuesta = angular.fromJson(rsp.data)
+			 	//let respuesta = angular.fromJson(rsp.data)
+			 	if(rsp.data == 1){
 
-			 	if(respuesta.valida){
-			 		
+			 		$scope.iniciar('Maestros');
+			 		$scope.iniciar('Cursos');
+			 	
+			 		window.location.href = '#/notas';
+			 		localStorage.ingreso = true 
 			 	}
+			 	else 
+			 		mensajeError("Usuario o Clave Invalido")
+			 	
 			
 			}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+
+
+
 	}
 
 
+	$scope.iniciar = (clase) =>{
+
+		let resultado = false 
+
+		$http.post(clase + '/iniciar')
+			 .then( (r) => {}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+
+
+		return resultado
+	}
+
+
+
+
 } );
+
+

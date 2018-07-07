@@ -1,56 +1,43 @@
 <br><br>
-	
-	<h2 class="center" > Registrar Estudiante  </h2>
-
-	<br><br><br><br>
-
-
-
-
-		<div class="input-field col s8 offset-s1"> 
-        <input id="nombre" type="text" class="validate">
-        <label for="nombre"> Nombres y Apellidos </label>
-
-      </div>
+<h2 class="center" > Registrar Estudiante  {{data.edad }}</h2>
+<br><br><br><br>
+  <div class="input-field col s8 offset-s1"> 
+      <input id="nombre" type="text" class="validate" ng-model=data.nombre >
+      <label for="nombre"> Nombres y Apellidos </label>
+  </div>
 		
-      <div class="input-field col s3 offset-s1 " ng-repeat="x in materias" > 
-        <input name="{{x.name}}"  type="text" class="validate">
-        <label for="nombre"> {{ x.texto }} </label>
-      </div>
+  <div class="input-field col s8 offset-s1 " > 
+    <input  type="number" class="validate"  ng-model="data.nota" >
+    <label for="nombre"> Nota </label>
+  </div>
 
   <div class="input-field col s4 offset-s1">
-    
-    <select>
-    
-      <option ng-repeat="lugar in lugares"  ng-value="lugar.id" >
-      {{lugar.texto}}
-       </option>
-      
+    <select ng-model=data.selectLugar  >
+      <option ng-repeat="lugar in lugares"  ng-value="lugar.id" >  {{lugar.texto}} </option>  
     </select>
-
     <label>Lugar de Nacimiento</label>
   </div>
 
 
+  <div class="input-field col s4 offset-s1">
+    <select  ng-model="data.sexo " >
+      <option value="m" > Niño  </option>
+      <option value="f" > Niña  </option>
+    </select>
+    <label>Sexo</label>
+  </div>
+
+
 <div class="input-field col s8 offset-s1"> 
-    <input id=edad type="text"  class="datepicker">
-    <label for="edad"> Fecha de Nacimiento </label>
+  <input id=edad type="text"  class="datepicker" ng-model=data.edad >
+  <label for="edad"> Fecha de Nacimiento </label>
 </div>
 
-      
-
-
-
-
-
-       <div class="input-field col s2 offset-s10  ">
-        
-
-          <button class="btn btn-block blue darken-4">
-          		Guardar  <i class="glyphicon glyphicon-ok"></i>
-          </button>
-      
-      </div>
+<div class="input-field col s2 offset-s10  ">
+  <button class="btn btn-block blue darken-4" ng-click="btnRegistrar()" >
+    Guardar  <i class="glyphicon glyphicon-ok"></i>
+  </button>
+</div>
 
 
 

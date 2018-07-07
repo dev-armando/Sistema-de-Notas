@@ -340,3 +340,16 @@ function mensajeError(texto){
 	
 	})
 }
+
+
+function mensajeOk(texto){
+
+	swal({
+	  type: 'success',
+	  title: 'Ok',
+	  text: texto
+	
+	})
+}
+
+

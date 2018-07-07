@@ -4,100 +4,108 @@ defined("PATH_RAIZ") OR die("Access denied");
 
 use \Core\App;
 
+/**
+ * @class Database
+ */
+class Database
+{
 
-class Database{
+	/**
+	* @desc nombre del usuario de la base de datos
+	* @var $_dbUser
+	* @access private
+	*/
+	private $_dbUser;
 
-		protected $conexion;
-		protected $tabla;
+	/**
+	* @desc password de la base de datos
+	* @var $_dbPassword
+	* @access private
+	*/
+	private $_dbPassword;
 
-		protected $sql; // sentencia SQL 
-		protected $error; // mensaje de error 
+	/**
+	* @desc nombre del host
+	* @var $_dbHost
+	* @access private
+	*/
+	private $_dbHost;
 
+	/**
+	* @desc nombre de la base de datos
+	* @var $_dbName
+	* @access protected
+	*/
+	protected $_dbName;
 
-		
+	/**
+	* @desc conexión a la base de datos
+	* @var $_connection
+	* @access private
+	*/
+	private $_connection;
 
-		public function establecer_conexion($tipo_error){
+    /**
+    * @desc instancia de la base de datos
+    * @var $_instance
+    * @access private
+    */
+    private static $_instance;
 
-			$config = App::getConfig(); 
+	/**
+	 * [__construct]
+	 */
+    private function __construct()
+    {
+       try {
+		   //load from Config/Config.ini
+		   $config = App::getConfig();
+		   $this->_dbHost = $config["host"];
+		   $this->_dbUser = $config["user"];
+		   $this->_dbPassword = $config["pass"];
+		   $this->_dbName = $config["db"];
 
-			$this->conexion=new PDO("mysql:host=".$config['host']."; dbname=".$config['db'],$config['user'],$config['pass']);
-			//Aquí establecemos el modo error en el modo que necesitemos
-			$this->conexion->setAttribute(PDO::ATTR_ERRMODE,$tipo_error);
+           $this->_connection = new \PDO('mysql:host='.$this->_dbHost.'; dbname='.$this->_dbName, $this->_dbUser, $this->_dbPassword);
+           $this->_connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+           $this->_connection->exec("SET CHARACTER SET utf8");
+       }
+       catch (\PDOException $e)
+       {
+           print "Error!: " . $e->getMessage();
+           die();
+       }
+    }
 
-			unset($config);
-		}
+	/**
+	 * [prepare]
+	 * @param  [type] $sql [description]
+	 * @return [type]      [description]
+	 */
+	public function prepare($sql)
+    {
+        return $this->_connection->prepare($sql);
+    }
 
-		//Función que devuelve un array listo para ejecutar en una consulta preparada
-		public function get_prepare_array($arreglo=array()){
-			//Creamos un nuevo arreglo vacío
-			$arreglo_preparado=array();
-			//Recorremos el arreglo que le hemos pasado como parámetro con sus claves
-			//y valores correspondientes
+	/**
+	 * [instance singleton]
+	 * @return [object] [class database]
+	 */
+    public static function instance()
+    {
+        if (!isset(self::$_instance))
+        {
+            $class = __CLASS__;
+            self::$_instance = new $class;
+        }
+        return self::$_instance;
+    }
 
-			//Por cada vuelta del siguiente bucle foreach vamos asignando claves y valores a nuestro
-			//nuevo arreglo con el formato :clave=>valor para que pueda ser utilizado en la consulta
-			//preparada
-			foreach($arreglo as $dato=>$valor)
-				$arreglo_preparado[':'.$dato]=$valor;
-			//Y finalmente devolvemos un arreglo listo para ser usado dentro de nuestra consulta
-			//preparada
-			return $arreglo_preparado;
-		}
-
-		public function consult($datos=array()){
-
-
-				//Creamos el sql
-				$sql= $this->sql;
-
-				try{
-				//Establecemos la conexion con la función establecer_conexion
-				$this->establecer_conexion(PDO::ERRMODE_WARNING);
-		
-				//Preparamos la consulta con la función prepare de PDO para así evitar inyecciones sql
-				$resultado=$this->conexion->prepare($sql);
-				//Ejecutamos la consulta pasándole el valor de búsqueda
-				$resultado->execute($this->get_prepare_array($datos));
-
-				if(strtoupper($sql[0]) == "S" )
-					//Y luego almacenamos el resultado de la consulta en un array bidimensional
-					$registros=$resultado->fetchAll(PDO::FETCH_ASSOC);
-				else
-					$registros = 1; 
-
-				//Luego liberamos los recursos ocupados por el resultado
-				$resultado->closeCursor();
-						//Luego cerramos la conexión igualándola a null
-				$this->conexion=null;
-				//Y finalmente devolvemos los registros de la consulta
-				return $registros;
-					// captura el error 
-				}catch(Exception $e){  
-					
-					return -1;  // codigo Error
-				}
-
-			
-		}
-
-
-		public function sql( $sql ){
-
-			$this->sql = $sql; 
-		}
-
-
-		public function get_all(){
-
-				//Creamos el sql
-				$this->sql= "SELECT * FROM {$this->tabla}";
-				return $this->consult();
-			
-		}
-
-	
-
-		
-	}
-
- ?>
+    /**
+     * [__clone Evita que el objeto se pueda clonar]
+     * @return [type] [message]
+     */
+    public function __clone()
+    {
+        trigger_error('La clonación de este objeto no está permitida', E_USER_ERROR);
+    }
+}

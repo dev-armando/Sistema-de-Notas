@@ -1,5 +1,8 @@
 <?php
 namespace Core;
+
+use Core\Database;
+
 defined("PATH_RAIZ") OR die("Access denied");
 
 class Model
@@ -52,12 +55,13 @@ class Model
 			$query->execute(self::set_array($datos) );
 
 			if( $sql[0] == 'S' )
-				return ($query->fetchAll(PDO::FECTH_ASSOC));
+				return ($query->fetchAll());
 			else
 				return true; 
 		}
         catch(\PDOException $e)
         {
+        
 			return false;
 		}
     }

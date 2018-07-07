@@ -8,6 +8,7 @@ class Controller
 {
 
 	protected $controller_name; 
+    protected $modelo; 
 
 	public function test(){
 
