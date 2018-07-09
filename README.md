@@ -1,7 +1,7 @@
-# Adminstrado de Credenciales del BDV
-## Armando Rojas 2018 
+# Sistema de Notas para La Escuela Bolivariana Ciudad de Merída 
 
+## By: Armando Jóse Rojas Querales 
 
-### Almacen de Credenciales y Generador de Script para interactuar con el banco de venezuela
-### desde la consola de desarrollo  
+### Prototipo para un sistema de notas de la escuela a la cual asistí 
 
+En el prototipo se prueba los Boletines generados dinamicamenten en Word y un cuadro resumen de notas en Excel, es la base para mi proyecto comunitario de este semestre.
