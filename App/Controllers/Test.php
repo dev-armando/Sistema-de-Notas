@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\Controller,
     \Core\View, 
+    \Core\Helpers as P, 
      \App\Models\Usuarios as Modelo;
 
 defined("PATH_RAIZ") OR die("Access denied");
@@ -14,6 +15,11 @@ class Test extends Controller
 	public function __construct(){
 
         parent::__construct(__CLASS__);
+    }
+
+    public function fecha(){
+
+        echo P::formato_fecha('20180910');
     }
 
     public function modelo(){

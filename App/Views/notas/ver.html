@@ -1,6 +1,8 @@
 <br><br><br>
 
-<h3 class="center"   >{{ titulo }} </h3>
+<h3 class="center"   >{{ titulo   }} </h3>
+
+<h6 class="left">  {{' Maestra : '  + resultado[0].maestro}}  </h6>
 
 <br><br><br><br>
 
@@ -9,7 +11,7 @@
 
  <div class="input-field col s4  ">
         
-          <a class="waves-effect waves-light btn  cyan" id=btnResumen >
+          <a  ng-click="btnReporte()" class="waves-effect waves-light btn  cyan" id=btnResumen >
           	Cuadro Resumen
           </a>
       

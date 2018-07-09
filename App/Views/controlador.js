@@ -3,6 +3,22 @@ app.controller("control" , ($scope , $rootScope ) =>  {
 	$rootScope.menu = false
 });
 
+
+// literal 
+
+app.controller("literal" , function literal($scope, $rootScope, $http){
+	$rootScope.menu = true
+	moduloLiteral()
+
+
+	$scope.btnMostrarOcultar = ()=>{
+
+		botones()
+	}
+
+} )
+
+
 // Notas 
 app.controller("notas" , function login($scope , $rootScope, $http){
 
@@ -21,6 +37,8 @@ app.controller("notas" , function login($scope , $rootScope, $http){
 			 .then( (rsp) => {
 				
 				$scope.resultado = rsp.data
+
+		
 				
 			}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
 	}
@@ -48,6 +66,24 @@ app.controller("notas" , function login($scope , $rootScope, $http){
 				
 			}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
 	}
+
+
+	$scope.btnVer = (id) => {
+
+		
+
+		window.open('Reportes/estudiantes/'+id )
+
+	}
+
+
+	$scope.btnReporte = () => {
+
+		
+
+		window.open('Reportes/resumen_de_rendimiento' )
+
+	}
  
 
 
@@ -67,7 +103,9 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 	$scope.lugares = [
 		{ id : 1 , texto : 'Turen' },
 		{ id : 2 , texto : 'Araure' },
-		{ id : 3 , texto : 'Acarigua' }
+		{ id : 3 , texto : 'Acarigua' },
+		{ id : 4 , texto : 'San Fernando' },
+		{ id : 5 , texto : 'San Cristobal' }
 
 	];
 
@@ -99,7 +137,7 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
             	$scope.control = false
             } 
 
-            if (nuevo[1].length < 3 ) $scope.control = false
+            
            
             
      })	
@@ -126,6 +164,24 @@ app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 
 } );
 
+//home 
+
+app.controller("home" , function home($scope , $rootScope , $http){
+
+
+	$rootScope.menu = true 
+
+	$http.get('Maestros/nombre').then( (rsp) =>{
+
+		arreglo = rsp.data.split(" "); 
+
+		$scope.maestro = arreglo[0];
+
+	} , (rsp)=> mensajeError("Error al Conectarse con el servidor"))
+
+})
+
+
 // Login 
 
 app.controller("login" , function login($scope , $rootScope, $http){
@@ -148,7 +204,7 @@ app.controller("login" , function login($scope , $rootScope, $http){
 			 		$scope.iniciar('Maestros');
 			 		$scope.iniciar('Cursos');
 			 	
-			 		window.location.href = '#/notas';
+			 		window.location.href = '#/home';
 			 		localStorage.ingreso = true 
 			 	}
 			 	else 

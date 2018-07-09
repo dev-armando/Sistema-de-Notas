@@ -29,5 +29,12 @@ class Maestros extends Controller
       	}
     }
 
+    public function nombre(){
+
+      echo $this->modelo->consultarPorIdUsuario($_SESSION['id_usuario'])[0]['nombre'];
+
+
+    }
+
   
 }

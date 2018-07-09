@@ -48,6 +48,8 @@ INSERT INTO materias (materia_id, grado_id , descripcion ) values (4,2 , 'CASTEL
 INSERT INTO lugares (lugar_id  , descripcion ) values (1,   'Turen');
 INSERT INTO lugares (lugar_id  , descripcion ) values (2,   'Araure');
 INSERT INTO lugares (lugar_id  , descripcion ) values (3,   'Acarigua');
+INSERT INTO lugares (lugar_id  , descripcion ) values (4,   'San Fernando');
+INSERT INTO lugares (lugar_id  , descripcion ) values (4,   'San Cristobal');
 
 -- estudiantes 
 
@@ -63,11 +65,11 @@ INSERT INTO cursos (curso_id , periodo_id , grado_id , maestro_id , seccion ) VA
 
 -- Asignar Estudiantes 
 
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id ) values (1, 1 );
+INSERT INTO cursos_estudiantes (curso_id , estudiante_id, nota ) values (1, 1 ,20);
 
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id ) values (1, 2 );
+INSERT INTO cursos_estudiantes (curso_id , estudiante_id, nota ) values (1, 2 , 15);
 
-INSERT INTO cursos_estudiantes (curso_id , estudiante_id ) values (1, 3 );
+INSERT INTO cursos_estudiantes (curso_id , estudiante_id, nota ) values (1, 3 , 11);
 
 -- literales 
 
@@ -84,10 +86,6 @@ VALUES (2 , 'A' , 'Excelente', 19 , 20  , 'm' , 'Es un niño muy responsable, ob
 INSERT INTO literales (grado_id , nota, valor , rango_d , rango_h , sexo , descripcion)
 VALUES (2 , 'A' , 'Excelente', 19 , 20  , 'f' , 'Es una niña solidaria, respetuosa, solidaria con sus compañeros, participa, muestra responsabilidad al momento de realizar sus actividades escolares, asiste frecuentemente a clases, su comportamiento y disciplina son satisfactorio, lee de manera fluida cualquier texto, analiza y realiza producciones de manera individual en forma satisfactoria, su escritura es legible, realiza producciones dirigidas tomando en cuenta los signos de puntuación y aspectos formales de la escritura, resuelve adicciones, sustracciones, y multiplicaciones, conoce la tabla hasta el tres. Alcanzo todas las competencias previstas, en algunos casos supero las expectativas para el grado.  ' );
 
-
-
-INSERT INTO literales (grado_id , nota, valor , rango_d , rango_h , sexo , descripcion)
-VALUES (2 , 'A' , 'Excelente', 15 , 18  , 'm' , 'Es un niño tranquilo obediente, trabajador en algunos casos muestra un poco desanimado pero luego se involucra en las actividades que se realiza. Es amistoso y buen compañero asiste frecuentemente a clases y su comportamiento es satisfactorio, lee de manera fluida, aunque su tono de voz es bajo, su estructura es legible, realiza dictados, analiza texto de manera individual, se devuelven satisfactoriamente al momento de realizar producciones en forma individual. En el área de matemática  y conteo de cantidades, resuelve adicciones y sustracciones llevando y quitando prestado, realiza multiplicaciones sencillas conociendo la tabla del multiplicar hasta el tres, el niño alcanzo las competencias previstas para el grado. Recomendaciones: El niño requiere de apoyo para que se apropie del estudio de las matemáticas, para que se siente segura del desarrollo de su aprendizaje. ' );
 
 
 

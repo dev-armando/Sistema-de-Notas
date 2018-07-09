@@ -66,3 +66,20 @@
 
 	display: none;
 }
+
+
+.literal-textarea{
+
+	height:  30%; 
+}
+
+
+.btn{
+	transition: .5s; 
+}
+
+.ocultar{
+
+	display: none; 
+	transition: .5s; 
+}

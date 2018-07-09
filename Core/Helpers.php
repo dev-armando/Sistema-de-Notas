@@ -24,4 +24,24 @@ class Helpers
         return $year.$meses[$m].$dia;
 
     }
+
+     public static function formato_fecha($fecha)
+    {
+
+
+        $year = $fecha[0].$fecha[1].$fecha[2].$fecha[3];
+        $mes =  $fecha[5].$fecha[6];
+        $day =  $fecha[8].$fecha[9];
+
+        return $day.'/'.$mes.'/'.$year;
+
+    }
+
+
+    public static function promedio( $cantidad , $total  ){
+
+      return ($cantidad / $total) ;
+    }
+
+
 }

@@ -17,6 +17,14 @@ app.config(['$routeProvider',function($routeProvider) {
     templateUrl: RUTA_VISTA + 'notas/ver.html' ,
     controller: "notas"
   })
+  .when('/home', {
+    templateUrl: RUTA_VISTA + 'login/home.html' ,
+    controller: "home"
+  })
+   .when('/literales', {
+    templateUrl: RUTA_VISTA + 'literales/ver.html' ,
+    controller: "literal"
+  })
   .otherwise({
         redirectTo: '/'
   });   

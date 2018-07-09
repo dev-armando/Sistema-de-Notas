@@ -62,19 +62,46 @@ class Estudiantes extends Model
 
     public function consultar(){
 
-        $sql = "SELECT e.estudiante_id as id  , e.nombre as nombre , c.nota as nota , g.descripcion as grado ";
-        $sql .= ", e.sexo as sexo, l.nota as literal, l.descripcion as texto, ";
-        $sql .= "e.fecha_n as edad, ll.descripcion as lugar ";
-        $sql .= "from estudiantes as e ";
-        $sql .= "INNER JOIN cursos_estudiantes as c ON c.estudiante_id = e.estudiante_id ";
-        $sql .= "INNER JOIN cursos as cc ON cc.curso_id = c.curso_id ";
-        $sql .= "INNER JOIN grados as g ON g.grado_id = cc.grado_id ";
-        $sql .= "inner JOIN literales as l ON  e.sexo = l.sexo and c.nota between l.rango_d and l.rango_h ";
-        $sql .= "inner JOIN lugares as ll ON ll.lugar_id = e.lugar_id where cc.maestro_id = :id ";
-        
+        $sql = "SELECT e.estudiante_id as id , e.nombre as nombre , c.nota as nota , g.descripcion as grado, ";
+        $sql .="e.sexo as sexo, l.nota as literal, l.descripcion as texto, ";
+        $sql .="e.fecha_n as edad, ll.descripcion as lugar, cc.seccion as  seccion, ";
+        $sql .='m.nombre as maestro, CONCAT( p.inicio , "-" , p.cierre ) as periodo, l.valor as interpretacion  ';
+        $sql .="from estudiantes as e ";
+        $sql .="INNER JOIN cursos_estudiantes as c ON c.estudiante_id = e.estudiante_id ";
+        $sql .="INNER JOIN cursos as cc ON cc.curso_id = c.curso_id ";
+        $sql .="INNER JOIN grados as g ON g.grado_id = cc.grado_id ";
+        $sql .="inner JOIN literales as l ON  e.sexo = l.sexo and c.nota between l.rango_d and l.rango_h ";
+        $sql .="inner JOIN lugares as ll ON ll.lugar_id = e.lugar_id ";
+        $sql .="inner JOIN maestros as m ON cc.maestro_id = m.maestro_id ";
+        $sql .="inner JOIN periodos as p ON p.periodo_id = cc.periodo_id "; 
+        $sql .="WHERE m.maestro_id = :id  "; 
+ 
         $this->set_sql($sql);
 
         return $this->execute_query(array("id" => $_SESSION['id_maestro'] )); 
+
+    }
+
+
+    public function consultarByID($id){
+
+        $sql = "SELECT e.nombre as nombre , c.nota as nota , g.descripcion as grado, ";
+        $sql .="e.sexo as sexo, l.valor as valor  , l.nota as literal, l.descripcion as texto, ";
+        $sql .="e.fecha_n as edad, ll.descripcion as lugar, cc.seccion as  seccion, ";
+        $sql .='m.nombre as maestro, CONCAT( p.inicio , "-" , p.cierre ) as periodo, l.valor as interpretacion ';
+        $sql .="from estudiantes as e ";
+        $sql .="INNER JOIN cursos_estudiantes as c ON c.estudiante_id = e.estudiante_id ";
+        $sql .="INNER JOIN cursos as cc ON cc.curso_id = c.curso_id ";
+        $sql .="INNER JOIN grados as g ON g.grado_id = cc.grado_id ";
+        $sql .="inner JOIN literales as l ON  e.sexo = l.sexo and c.nota between l.rango_d and l.rango_h ";
+        $sql .="inner JOIN lugares as ll ON ll.lugar_id = e.lugar_id ";
+        $sql .="inner JOIN maestros as m ON cc.maestro_id = m.maestro_id ";
+        $sql .="inner JOIN periodos as p ON p.periodo_id = cc.periodo_id "; 
+        $sql .="WHERE m.maestro_id = :id and e.estudiante_id = :estudiante "; 
+ 
+        $this->set_sql($sql);
+
+        return $this->execute_query(array("id" => $_SESSION['id_maestro'] , "estudiante" => $id  )); 
 
     }
 

@@ -46,17 +46,7 @@ class Maestros extends Model
         
     }
 
-    public function cerrarSession(){
-
-        unset( $_SESSION['id_usuario'] );
-        unset( $_SESSION['id_rol'] );
-    }
-
-
-    public static function cifrado( $usuario, $clave ){
-
-    	return hash('sha256',  md5($usuario) . md5($clave) ); 
-    }
+ 
  
     
 }
