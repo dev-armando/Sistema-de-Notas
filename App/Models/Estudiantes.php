@@ -64,6 +64,7 @@ class Estudiantes extends Model
 
         $sql = "SELECT e.estudiante_id as id , e.nombre as nombre , c.nota as nota , g.descripcion as grado, ";
         $sql .="e.sexo as sexo, l.nota as literal, l.descripcion as texto, ";
+        $sql .=" (TO_DAYS(now()) - TO_DAYS(e.fecha_n) ) / 365  as EDAD2 ,  ";
         $sql .="e.fecha_n as edad, ll.descripcion as lugar, cc.seccion as  seccion, ";
         $sql .='m.nombre as maestro, CONCAT( p.inicio , "-" , p.cierre ) as periodo, l.valor as interpretacion  ';
         $sql .="from estudiantes as e ";
@@ -74,8 +75,10 @@ class Estudiantes extends Model
         $sql .="inner JOIN lugares as ll ON ll.lugar_id = e.lugar_id ";
         $sql .="inner JOIN maestros as m ON cc.maestro_id = m.maestro_id ";
         $sql .="inner JOIN periodos as p ON p.periodo_id = cc.periodo_id "; 
-        $sql .="WHERE m.maestro_id = :id  "; 
- 
+        $sql .="WHERE m.maestro_id = :id  AND l.grado_id = g.grado_id "; 
+
+        $sql .= "order by e.sexo DESC , e.nombre ASC   "; 
+    
         $this->set_sql($sql);
 
         return $this->execute_query(array("id" => $_SESSION['id_maestro'] )); 
@@ -87,6 +90,7 @@ class Estudiantes extends Model
 
         $sql = "SELECT e.nombre as nombre , c.nota as nota , g.descripcion as grado, ";
         $sql .="e.sexo as sexo, l.valor as valor  , l.nota as literal, l.descripcion as texto, ";
+        $sql .=" (TO_DAYS(now()) - TO_DAYS(e.fecha_n) ) / 365  as EDAD2 ,  ";
         $sql .="e.fecha_n as edad, ll.descripcion as lugar, cc.seccion as  seccion, ";
         $sql .='m.nombre as maestro, CONCAT( p.inicio , "-" , p.cierre ) as periodo, l.valor as interpretacion ';
         $sql .="from estudiantes as e ";

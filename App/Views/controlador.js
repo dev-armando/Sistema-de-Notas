@@ -8,15 +8,78 @@ app.controller("control" , ($scope , $rootScope ) =>  {
 
 app.controller("literal" , function literal($scope, $rootScope, $http){
 	$rootScope.menu = true
-	moduloLiteral()
+	
+
+	$scope.selectLiteral = ''
 
 
 	$scope.btnMostrarOcultar = ()=>{
 
 		botones()
+
+		$scope.control = ($scope.control) ? false : true
 	}
 
-} )
+
+
+
+		$http.post( 'Literales/get/*'  ).then( (rsp) => {
+				
+		$scope.literales2 = angular.fromJson(rsp.data)  
+		moduloLiteral()
+		
+
+
+		}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+    
+	
+
+	$scope.btnGuardar = () =>{
+
+		$scope.data = { 'id' : $scope.lite , 'texto' : $scope.texto  }
+
+		$http.post( 'Literales/edit/' , angular.toJson($scope.data)  )
+			.then( (rsp) => {
+				
+			if (rsp.data == 1){ 
+				mensajeOk("Guardado")
+				botones()
+				$scope.control = false
+			}
+			else 
+				mensajeError("Error al Conectarse con el servidor")
+
+
+
+		}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+
+
+	}
+
+	$scope.cargarTexto = () =>{
+
+		
+
+		$http.post( `Literales/get/${$scope.lite}`  ).then( (rsp) => {
+				
+		$scope.texto = angular.fromJson(rsp.data)[0]['texto']
+		
+		
+
+		}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
+	 	
+	}
+
+
+	$scope.btnEditar = () =>{ 
+
+		$scope.control = true 
+		botones()
+	}
+	
+
+
+})
 
 
 // Notas 
@@ -26,10 +89,12 @@ app.controller("notas" , function login($scope , $rootScope, $http){
 	$rootScope.menu = true
 
 
-	let grado = '2do grado'
+
+
+	var grado = '2do grado'
 	let seccion = 'C'
 
-	$scope.titulo = `Notas de los Estudiantes de ${grado} sección ${seccion} ` 
+	
 
 
 	function tabla_dato($scope){
@@ -38,17 +103,24 @@ app.controller("notas" , function login($scope , $rootScope, $http){
 				
 				$scope.resultado = rsp.data
 
-		
+				grado = $scope.resultado[0].grado
+
+				$scope.titulo = `Notas de los Estudiantes de ${grado} sección ${seccion} ` 
+
+				
 				
 			}, (rsp)=> mensajeError("Error al Conectarse con el servidor")    )
 	}
+
+	setTimeout( ()=>{ tablas() }  , 3000 )
+	
 
 	tabla_dato($scope)
 
 
 	$scope.tabla = [
 	
-		"Nombre y Apellido", "Literal","Imprimir"
+		"Nombre y Apellido", "Genero" , "Literal","Imprimir"
 	];
 
 
@@ -94,20 +166,26 @@ app.controller("notas" , function login($scope , $rootScope, $http){
 app.controller("estudiantes" , function estudiantes($scope , $rootScope, $http){
 
 	
-	moduloEstudiantes()
+	
 	
 
 	$rootScope.menu = true
 
 
-	$scope.lugares = [
-		{ id : 1 , texto : 'Turen' },
-		{ id : 2 , texto : 'Araure' },
-		{ id : 3 , texto : 'Acarigua' },
-		{ id : 4 , texto : 'San Fernando' },
-		{ id : 5 , texto : 'San Cristobal' }
+	
 
-	];
+	$http.post("lugares/get")
+		.then( 
+			(r)=>{ 
+				
+				$scope.lugares = r.data
+
+				
+				moduloEstudiantes()
+	}, (r)=>{alert(r)} )
+
+
+
 
 
 	$scope.data = {}

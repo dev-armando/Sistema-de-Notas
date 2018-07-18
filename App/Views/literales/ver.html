@@ -1,22 +1,28 @@
-<h2 class="center">  Ver literal  </h2>
+<h2 class="center"   >  Ver literal  </h2>
 
 <div class="input-field col s10 offset-s1 "  >
-<select  ng-model="data.sexo " >
-  <option value="m" > Niño  </option>
-  <option value="f" > Niña  </option>
-</select>
+
+
+ 	
+	<select ng-model="lite" ng-change="cargarTexto()"  >
+      <option ng-repeat="ls in literales2"  ng-value="ls.id" >  	
+      	{{ls.grado}} 
+      </option>  
+    </select>
+
+
 <label>Literal</label>
 </div>
 
 
-<textarea class="literal-textarea"></textarea>
+<textarea class="literal-textarea" ng-disabled="!control" ng-model="texto"   ></textarea>
 
 <br><br><br>
 
  <a id=btnEditar class="waves-effect waves-light btn blue "  ng-click="btnMostrarOcultar()" > 
  	Editar <i class="glyphicon glyphicon-edit"></i>  
  </a>
-<a id=btnGuardar class="waves-effect waves-light btn red ocultar">  
+<a ng-click="btnGuardar()" id=btnGuardar class="waves-effect waves-light btn red ocultar">  
 	Guardar <i class="glyphicon glyphicon-save" ></i>
 </a>
 

@@ -57,6 +57,7 @@ class Usuarios extends Model
         unset( $_SESSION['id_rol'] );
         unset( $_SESSION['id_maestro'] );
         unset( $_SESSION['id_curso'] );
+        unset( $_SESSION['id_grado'] );
     }
 
 

@@ -48,6 +48,8 @@ class Reportes extends Controller
 
         $contador = array( 'A' => 0 , 'B' => 0 , 'C' => 0 , 'D' => 0 , 'E' => 0 , ); 
 
+         $objPHPExcel->getActiveSheet()->setCellValue('A12', $data[0]['grado'] );
+
 
         foreach($data as $r => $dataRow) {
             $row = $baseRow + $r;
@@ -64,10 +66,11 @@ class Reportes extends Controller
             }
 
             $objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $dataRow['nombre'])
-                                          ->setCellValue('F'.$row, Ayuda::formato_fecha($dataRow['edad']) )
-                                          ->setCellValue('H'.$row, $dataRow['lugar'])
-                                          ->setCellValue($letra.$row, 'X' )
-                                          ->setCellValue('J'.$row, ($dataRow['sexo'] == 'm') ? 'V' : 'F'  );
+                                        ->setCellValue('F'.$row, Ayuda::formato_fecha(  $dataRow['edad']   ) )
+                                        ->setCellValue('H'.$row, $dataRow['lugar'])
+                                        ->setCellValue($letra.$row, 'X' )
+                                        ->setCellValue('J'.$row, ($dataRow['sexo'] == 'm') ? 'V' : 'H'  )
+                                        ->setCellValue('G'.$row,  $dataRow['EDAD2'][0].$dataRow['EDAD2'][1] );
         }
 
         $cantidad = count($data); 
@@ -116,7 +119,7 @@ class Reportes extends Controller
     $estudiante = $modelo->consultarByID($id)[0]; 
 
     // nombre del archivo a generar
-    $nombreDelArchivo = 'norkis';
+    $nombreDelArchivo = 'notas/'.$estudiante['nombre'];
 
     // variables 
    

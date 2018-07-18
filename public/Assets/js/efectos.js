@@ -37,10 +37,17 @@ $(document).ready(function(){
 
 }
 
-
-	function botones(){
+function botones(){
 
 		$("#btnGuardar").toggleClass('ocultar');
 		$("#btnCancelar").toggleClass('ocultar');
 		$("#btnEditar").toggleClass('ocultar');
-	}
+}
+
+
+
+function tablas(){
+
+		
+
+}

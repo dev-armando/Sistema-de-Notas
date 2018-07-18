@@ -1,22 +1,23 @@
-
-
-
-<table class="table-responsive centered">
+ <table id="search-example" class="table table-responsive centered">
         <thead class="red darken-2   white-text">
-          <tr class="">
-              <th ng-repeat="value in tabla" > {{value}} </th>
+          <tr >
+              <th class="dynatable-head"  ng-repeat="value in tabla" data-dynatable-column={{value}} > {{value}} </th>
           </tr>
         </thead>
 
         <tbody>
           <tr  ng-repeat="k in resultado" >
 
-            <td >
+            <td class="left" >
                 {{ k.nombre}}
             </td>
 
+             <td  >
+                {{ (k.sexo == 'f' ) ?  'Niña' : 'Niño' }}
+            </td>
 
-            <td >
+
+            <td  >
                 {{ k.literal}}
             </td>
             
